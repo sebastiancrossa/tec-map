@@ -7,8 +7,6 @@ import Map from "../components/Map";
 const MapView = () => {
   return (
     <div>
-      <p>This is the map view</p>
-
       <div
         style={{
           height: "100vh",
