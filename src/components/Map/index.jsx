@@ -6,6 +6,7 @@ const Leaflet = window.L;
 
 const Map = () => {
   // Preferencias para inicializar el mapa y su centro
+  // TODO: Exportar a una base de datos y extraer de ahi la informacion
   const [mapPrefs] = useState({
     lat: 20.735007,
     lng: -103.456181,
@@ -41,10 +42,18 @@ const Map = () => {
           [20.735184, -103.454446],
         ],
       },
+      {
+        name: "Difusión Cultural",
+        color: "purple",
+        coords: [
+          [20.735332, -103.457545],
+          [20.734958, -103.457572],
+          [20.734933, -103.457202],
+          [20.735291, -103.45718],
+        ],
+      },
     ],
   });
-
-  console.log(mapPrefs.lugares.map((lugar) => console.log(lugar)));
 
   // Inicializacion de toda la info que nos sirve para denotar el mapa
   const position = [mapPrefs.lat, mapPrefs.lng];
@@ -54,14 +63,7 @@ const Map = () => {
   const bounds = Leaflet.latLngBounds([bound1, bound2]);
 
   return (
-    <LeafletMap
-      center={position}
-      zoom={mapPrefs.zoom}
-      maxBounds={bounds}
-      zoomControl={false}
-      scrollWheelZoom={false}
-      doubleClickZoom={false}
-    >
+    <LeafletMap center={position} zoom={mapPrefs.zoom} maxBounds={bounds}>
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -77,13 +79,5 @@ const Map = () => {
     </LeafletMap>
   );
 };
-
-/*
-<Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-*/
 
 export default Map;

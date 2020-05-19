@@ -2,11 +2,12 @@
 import React from "react";
 
 // Component Imports
+import Layout from "../components/layout";
 import Map from "../components/Map";
 
 const MapView = () => {
   return (
-    <div>
+    <Layout>
       <div
         style={{
           height: "100vh",
@@ -16,7 +17,7 @@ const MapView = () => {
       >
         <Map />
       </div>
-    </div>
+    </Layout>
   );
 };
 
