@@ -1,6 +1,12 @@
 // Libraries
 import React, { useState } from "react";
-import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  Map as LeafletMap,
+  TileLayer,
+  Marker,
+  Popup,
+  Polygon,
+} from "react-leaflet";
 
 const Leaflet = window.L;
 
@@ -10,6 +16,14 @@ const Map = () => {
     lat: 20.735007,
     lng: -103.456181,
     zoom: 17,
+    lugares: {
+      centroCongresos: [
+        [20.732895, -103.456267],
+        [20.73248, -103.455965],
+        [20.732869, -103.45541],
+        [20.7333, -103.455776],
+      ],
+    },
   });
 
   // Inicializacion de toda la info que nos sirve para denotar el mapa
@@ -32,6 +46,8 @@ const Map = () => {
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+
+      <Polygon positions={mapPrefs.lugares.centroCongresos} color="blue" />
     </LeafletMap>
   );
 };
