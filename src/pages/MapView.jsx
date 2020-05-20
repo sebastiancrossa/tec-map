@@ -1,6 +1,13 @@
 // Libraries
 import React from "react";
 
+// Styles
+import {
+  Container,
+  SpacesListContainer,
+  MapContainer,
+} from "../styles/mapView.style";
+
 // Component Imports
 import Layout from "../components/layout";
 import Map from "../components/Map";
@@ -8,15 +15,13 @@ import Map from "../components/Map";
 const MapView = () => {
   return (
     <Layout>
-      <div
-        style={{
-          height: "100vh",
-          width: "100%",
-          margin: "0 auto",
-        }}
-      >
-        <Map />
-      </div>
+      <Container>
+        <SpacesListContainer>Establecimientos</SpacesListContainer>
+
+        <MapContainer>
+          <Map />
+        </MapContainer>
+      </Container>
     </Layout>
   );
 };

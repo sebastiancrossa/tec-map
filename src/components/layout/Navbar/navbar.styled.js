@@ -5,6 +5,4 @@ export const Background = styled.div`
   justify-content: space-between;
 
   padding: 1.5rem;
-
-  background-color: wheat;
 `;
