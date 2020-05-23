@@ -1,5 +1,6 @@
 // Libraries
 import React from "react";
+import { Stack, Tag } from "@chakra-ui/core";
 
 // Styles
 import {
@@ -81,7 +82,31 @@ const MapView = () => {
                     <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                   </div>
 
-                  <p>{lugar.desc}</p>
+                  <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+
+                  <Stack spacing={1} isInline>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#FC8181" }}
+                      color="white"
+                    >
+                      Impresión
+                    </Tag>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#4FD1C5" }}
+                      color="white"
+                    >
+                      Computadoras
+                    </Tag>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#90CDF4" }}
+                      color="white"
+                    >
+                      Baños
+                    </Tag>
+                  </Stack>
                 </Establecimiento>
               ))}
             </SpacesListContainer>

@@ -7,7 +7,7 @@ export const OuterContainer = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 28% 72%;
   grid-column-gap: 2rem;
 
   padding: 1rem;
