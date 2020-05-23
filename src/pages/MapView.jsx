@@ -23,6 +23,7 @@ const MapView = () => {
       desc:
         "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
       color: "blue",
+      servicios: ["bathroom"],
       coords: [
         [20.732895, -103.456267],
         [20.73248, -103.455965],
@@ -35,6 +36,7 @@ const MapView = () => {
       color: "red",
       desc:
         "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      servicios: ["bathroom"],
       coords: [
         [20.736284, -103.455898],
         [20.735463, -103.455966],
@@ -47,6 +49,7 @@ const MapView = () => {
       color: "green",
       desc:
         "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      servicios: ["bathroom", "computers", "printers"],
       coords: [
         [20.735269, -103.455015],
         [20.734837, -103.455036],
@@ -59,6 +62,7 @@ const MapView = () => {
       color: "purple",
       desc:
         "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      servicios: ["bathroom"],
       coords: [
         [20.735332, -103.457545],
         [20.734958, -103.457572],
@@ -83,29 +87,47 @@ const MapView = () => {
 
                   <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
 
-                  <Stack spacing={1} isInline>
-                    <Tag
-                      size="sm"
-                      style={{ backgroundColor: "#FC8181" }}
-                      color="white"
-                    >
-                      Impresión
-                    </Tag>
-                    <Tag
-                      size="sm"
-                      style={{ backgroundColor: "#4FD1C5" }}
-                      color="white"
-                    >
-                      Computadoras
-                    </Tag>
-                    <Tag
-                      size="sm"
-                      style={{ backgroundColor: "#90CDF4" }}
-                      color="white"
-                    >
-                      Baños
-                    </Tag>
-                  </Stack>
+                  {lugar.servicios.length > 0 && (
+                    <Stack spacing={2} isInline>
+                      {lugar.servicios.map((servicio) => {
+                        if (servicio == "bathroom") {
+                          return (
+                            <Tag
+                              size="sm"
+                              style={{ backgroundColor: "#90CDF4" }}
+                              color="white"
+                            >
+                              Baños
+                            </Tag>
+                          );
+                        }
+
+                        if (servicio == "computers") {
+                          return (
+                            <Tag
+                              size="sm"
+                              style={{ backgroundColor: "#4FD1C5" }}
+                              color="white"
+                            >
+                              Computadoras
+                            </Tag>
+                          );
+                        }
+
+                        if (servicio == "printers") {
+                          return (
+                            <Tag
+                              size="sm"
+                              style={{ backgroundColor: "#FC8181" }}
+                              color="white"
+                            >
+                              Impresión
+                            </Tag>
+                          );
+                        }
+                      })}
+                    </Stack>
+                  )}
                 </Establecimiento>
               ))}
             </SpacesListContainer>
