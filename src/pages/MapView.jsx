@@ -1,6 +1,14 @@
 // Libraries
-import React from "react";
-import { Stack, Tag } from "@chakra-ui/core";
+import React, { useState, useEffect } from "react";
+import {
+  Stack,
+  Tag,
+  Button,
+  Collapse,
+  Icon,
+  Checkbox,
+  CheckboxGroup,
+} from "@chakra-ui/core";
 
 // Styles
 import {
@@ -72,64 +80,137 @@ const MapView = () => {
     },
   ];
 
+  const [data, setData] = useState(lugares);
+
+  const [show, setShow] = useState(false);
+  const [onCheck, setOnCheck] = useState(false);
+  const [filterValue, setFilterValue] = useState([true, false, false]);
+
+  const handleToggle = () => setShow(!show);
+
+  const handleCheckboxToggle = (e, i) => {
+    let newArr = [...filterValue];
+    newArr[i] = e.target.checked;
+
+    setOnCheck(!onCheck);
+    setFilterValue(newArr);
+  };
+
+  useEffect(() => {
+    setData(
+      data.filter(
+        (lugar) =>
+          (filterValue[0] === true && lugar.servicios.includes("bathroom")) ||
+          (filterValue[1] === true && lugar.servicios.includes("computers")) ||
+          (filterValue[2] === true && lugar.servicios.includes("printers"))
+      )
+    );
+
+    console.log(data);
+  }, [onCheck]);
+
   return (
     <Layout>
       <OuterContainer>
+        <div>
+          <Button onClick={handleToggle} style={{ backgroundColor: "#EDF2F7" }}>
+            <Icon name="settings" />
+          </Button>
+          <Collapse
+            mt={4}
+            isOpen={show}
+            style={{
+              backgroundColor: "#EDF2F7",
+              padding: "1rem",
+              borderRadius: "5px",
+            }}
+          >
+            Filtrar por:
+            <Stack isInline spacing={4}>
+              <Checkbox
+                value="bathroom"
+                isChecked={filterValue[0]}
+                onChange={(e) => handleCheckboxToggle(e, 0)}
+              >
+                Baños
+              </Checkbox>
+              <Checkbox
+                value="computers"
+                isChecked={filterValue[1]}
+                onChange={(e) => handleCheckboxToggle(e, 1)}
+              >
+                Computadoras
+              </Checkbox>
+              <Checkbox
+                value="printers"
+                isChecked={filterValue[2]}
+                onChange={(e) => handleCheckboxToggle(e, 2)}
+              >
+                Impresión
+              </Checkbox>
+            </Stack>
+          </Collapse>
+        </div>
+
         <GridContainer>
           <div>
             <h1>Establecimientos</h1>
             <SpacesListContainer>
-              {lugares.map((lugar) => (
-                <Establecimiento color={lugar.color}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <h1 style={{ margin: "0" }}>{lugar.name}</h1>
-                  </div>
+              {data ? (
+                data.map((lugar) => (
+                  <Establecimiento color={lugar.color}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <h1 style={{ margin: "0" }}>{lugar.name}</h1>
+                    </div>
 
-                  <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+                    <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
 
-                  {lugar.servicios.length > 0 && (
-                    <Stack spacing={2} isInline>
-                      {lugar.servicios.map((servicio) => {
-                        if (servicio == "bathroom") {
-                          return (
-                            <Tag
-                              size="sm"
-                              style={{ backgroundColor: "#90CDF4" }}
-                              color="white"
-                            >
-                              Baños
-                            </Tag>
-                          );
-                        }
+                    {lugar.servicios.length > 0 && (
+                      <Stack spacing={2} isInline>
+                        {lugar.servicios.map((servicio) => {
+                          if (servicio == "bathroom") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#90CDF4" }}
+                                color="white"
+                              >
+                                Baños
+                              </Tag>
+                            );
+                          }
 
-                        if (servicio == "computers") {
-                          return (
-                            <Tag
-                              size="sm"
-                              style={{ backgroundColor: "#4FD1C5" }}
-                              color="white"
-                            >
-                              Computadoras
-                            </Tag>
-                          );
-                        }
+                          if (servicio == "computers") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#4FD1C5" }}
+                                color="white"
+                              >
+                                Computadoras
+                              </Tag>
+                            );
+                          }
 
-                        if (servicio == "printers") {
-                          return (
-                            <Tag
-                              size="sm"
-                              style={{ backgroundColor: "#FC8181" }}
-                              color="white"
-                            >
-                              Impresión
-                            </Tag>
-                          );
-                        }
-                      })}
-                    </Stack>
-                  )}
-                </Establecimiento>
-              ))}
+                          if (servicio == "printers") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#FC8181" }}
+                                color="white"
+                              >
+                                Impresión
+                              </Tag>
+                            );
+                          }
+                        })}
+                      </Stack>
+                    )}
+                  </Establecimiento>
+                ))
+              ) : (
+                <h1>Loading...</h1>
+              )}
             </SpacesListContainer>
           </div>
 
