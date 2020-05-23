@@ -1,9 +1,11 @@
 // Libraries
 import React from "react";
+import { Stack, Tag } from "@chakra-ui/core";
 
 // Styles
 import {
-  Container,
+  OuterContainer,
+  GridContainer,
   SpacesListContainer,
   Establecimiento,
   MapContainer,
@@ -18,6 +20,8 @@ const MapView = () => {
   const lugares = [
     {
       name: "Centro de Congresos",
+      desc:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
       color: "blue",
       coords: [
         [20.732895, -103.456267],
@@ -29,6 +33,8 @@ const MapView = () => {
     {
       name: "Gimnasio",
       color: "red",
+      desc:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
       coords: [
         [20.736284, -103.455898],
         [20.735463, -103.455966],
@@ -39,6 +45,8 @@ const MapView = () => {
     {
       name: "Biblioteca",
       color: "green",
+      desc:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
       coords: [
         [20.735269, -103.455015],
         [20.734837, -103.455036],
@@ -49,6 +57,8 @@ const MapView = () => {
     {
       name: "Difusión Cultural",
       color: "purple",
+      desc:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
       coords: [
         [20.735332, -103.457545],
         [20.734958, -103.457572],
@@ -60,21 +70,52 @@ const MapView = () => {
 
   return (
     <Layout>
-      <Container>
-        <SpacesListContainer>
-          <h1>Establecimientos:</h1>
+      <OuterContainer>
+        <GridContainer>
+          <div>
+            <h1>Establecimientos</h1>
+            <SpacesListContainer>
+              {lugares.map((lugar) => (
+                <Establecimiento color={lugar.color}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <h1 style={{ margin: "0" }}>{lugar.name}</h1>
+                  </div>
 
-          {lugares.map((lugar) => (
-            <Establecimiento color={lugar.color}>
-              <div className="circle" color /> {lugar.name}
-            </Establecimiento>
-          ))}
-        </SpacesListContainer>
+                  <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
 
-        <MapContainer>
-          <Map />
-        </MapContainer>
-      </Container>
+                  <Stack spacing={1} isInline>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#FC8181" }}
+                      color="white"
+                    >
+                      Impresión
+                    </Tag>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#4FD1C5" }}
+                      color="white"
+                    >
+                      Computadoras
+                    </Tag>
+                    <Tag
+                      size="sm"
+                      style={{ backgroundColor: "#90CDF4" }}
+                      color="white"
+                    >
+                      Baños
+                    </Tag>
+                  </Stack>
+                </Establecimiento>
+              ))}
+            </SpacesListContainer>
+          </div>
+
+          <MapContainer>
+            <Map />
+          </MapContainer>
+        </GridContainer>
+      </OuterContainer>
     </Layout>
   );
 };
