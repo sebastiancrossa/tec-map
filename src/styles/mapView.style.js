@@ -27,6 +27,8 @@ export const SpacesListContainer = styled.div`
 `;
 
 export const Establecimiento = styled.div`
+  border-top: 5px solid ${({ color }) => color && color};
+
   background-color: white;
   border-radius: 5px;
 

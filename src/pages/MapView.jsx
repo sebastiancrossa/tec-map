@@ -78,7 +78,6 @@ const MapView = () => {
               {lugares.map((lugar) => (
                 <Establecimiento color={lugar.color}>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <div className="circle" color />{" "}
                     <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                   </div>
 
