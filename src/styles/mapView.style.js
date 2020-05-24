@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-export const OuterContainer = styled.div`
-  max-width: 80rem;
-  margin: 0 auto;
-`;
-
 export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 28% 72%;
@@ -17,6 +12,13 @@ export const GridContainer = styled.div`
     font-weight: 700;
 
     margin-bottom: 0.5rem;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    display: inline-block;
+    margin: 0 auto;
+
+    width: 100%;
   }
 `;
 
@@ -40,20 +42,14 @@ export const Establecimiento = styled.div`
   -webkit-box-shadow: 0px 0px 80px -15px rgba(136, 186, 255, 0.34);
   -moz-box-shadow: 0px 0px 80px -15px rgba(136, 186, 255, 0.34);
   box-shadow: 0px 0px 80px -15px rgba(136, 186, 255, 0.34);
-
-  .circle {
-    width: 16px;
-    height: 16px;
-
-    margin-right: 0.5rem;
-
-    border-radius: 50rem;
-
-    background-color: ${({ color }) => color && color};
   }
 `;
 
 export const MapContainer = styled.div`
   width: 95%;
   height: 80vh;
+
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+  }
 `;

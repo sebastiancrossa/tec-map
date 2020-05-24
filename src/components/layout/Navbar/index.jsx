@@ -9,7 +9,9 @@ const Navbar = ({ history }) => {
   return (
     <Background>
       <button onClick={() => history.push("/")}>Tec Map</button>
-      <button onClick={() => history.push("/lista")}>List</button>
+      <button onClick={() => history.push("/lista")}>
+        Lista Establecimientos
+      </button>
     </Background>
   );
 };
