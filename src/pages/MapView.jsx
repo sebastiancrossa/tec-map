@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/core";
 
 // Styles
+import { OuterContainer } from "../style";
 import {
-  OuterContainer,
   GridContainer,
   SpacesListContainer,
   Establecimiento,
@@ -84,28 +84,26 @@ const MapView = () => {
 
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
-  const [filterValue, setFilterValue] = useState([true, false, false]);
+  const [filterValue, setFilterValue] = useState([]);
 
   const handleToggle = () => setShow(!show);
 
-  const handleCheckboxToggle = (e, i) => {
+  const handleCheckboxToggle = (e, val) => {
     let newArr = [...filterValue];
-    newArr[i] = e.target.checked;
+
+    // Si el arreglo de filtros ya incluye el valor que estamos queriendo pasar, eliminarlo
+    if (newArr.includes(val)) {
+      newArr.filter((item) => item != val);
+    } else {
+      newArr.push(val);
+    }
 
     setOnCheck(!onCheck);
     setFilterValue(newArr);
   };
 
   useEffect(() => {
-    setData(
-      data.filter(
-        (lugar) =>
-          (filterValue[0] === true && lugar.servicios.includes("bathroom")) ||
-          (filterValue[1] === true && lugar.servicios.includes("computers")) ||
-          (filterValue[2] === true && lugar.servicios.includes("printers"))
-      )
-    );
-
+    console.log(filterValue);
     console.log(data);
   }, [onCheck]);
 
@@ -129,22 +127,22 @@ const MapView = () => {
             <Stack isInline spacing={4}>
               <Checkbox
                 value="bathroom"
-                isChecked={filterValue[0]}
-                onChange={(e) => handleCheckboxToggle(e, 0)}
+                isChecked={filterValue.includes("bathroom")}
+                onChange={(e) => handleCheckboxToggle(e, "bathroom")}
               >
                 Baños
               </Checkbox>
               <Checkbox
                 value="computers"
-                isChecked={filterValue[1]}
-                onChange={(e) => handleCheckboxToggle(e, 1)}
+                isChecked={filterValue.includes("computers")}
+                onChange={(e) => handleCheckboxToggle(e, "computers")}
               >
                 Computadoras
               </Checkbox>
               <Checkbox
                 value="printers"
-                isChecked={filterValue[2]}
-                onChange={(e) => handleCheckboxToggle(e, 2)}
+                isChecked={filterValue.includes("printers")}
+                onChange={(e) => handleCheckboxToggle(e, "printers")}
               >
                 Impresión
               </Checkbox>
@@ -168,7 +166,7 @@ const MapView = () => {
                     {lugar.servicios.length > 0 && (
                       <Stack spacing={2} isInline>
                         {lugar.servicios.map((servicio) => {
-                          if (servicio == "bathroom") {
+                          if (servicio === "bathroom") {
                             return (
                               <Tag
                                 size="sm"
@@ -180,7 +178,7 @@ const MapView = () => {
                             );
                           }
 
-                          if (servicio == "computers") {
+                          if (servicio === "computers") {
                             return (
                               <Tag
                                 size="sm"
@@ -192,7 +190,7 @@ const MapView = () => {
                             );
                           }
 
-                          if (servicio == "printers") {
+                          if (servicio === "printers") {
                             return (
                               <Tag
                                 size="sm"
