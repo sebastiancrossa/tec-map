@@ -3,15 +3,7 @@ import React, { useState, useEffect } from "react";
 import { lugares } from "../utils/db";
 
 // Styles
-import {
-  Stack,
-  Tag,
-  Button,
-  Collapse,
-  Icon,
-  Checkbox,
-  CheckboxGroup,
-} from "@chakra-ui/core";
+import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
 import { OuterContainer } from "../style";
 import {
   GridContainer,
@@ -27,6 +19,7 @@ import Map from "../components/Map";
 const MapView = () => {
   const [data, setData] = useState(lugares);
 
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
@@ -34,29 +27,50 @@ const MapView = () => {
   const handleToggle = () => setShow(!show);
 
   const handleCheckboxToggle = (e, val) => {
+    setLoading(true);
     let newArr = [...filterValue];
 
     // Si el arreglo de filtros ya incluye el valor que estamos queriendo pasar, eliminarlo
     if (newArr.includes(val)) {
-      newArr.filter((item) => item != val);
+      newArr = newArr.filter((item) => item !== val);
     } else {
       newArr.push(val);
     }
 
-    setOnCheck(!onCheck);
+    setLoading(false);
     setFilterValue(newArr);
+    setOnCheck(!onCheck);
   };
 
   useEffect(() => {
-    console.log(filterValue);
-    console.log(data);
+    setLoading(true);
+    if (filterValue.length === 0) {
+      setData(lugares);
+    } else {
+      setData(
+        data.filter(
+          (item) =>
+            (filterValue.includes("computers") &&
+              item.servicios.includes("computers")) ||
+            (filterValue.includes("bathroom") &&
+              item.servicios.includes("bathroom")) ||
+            (filterValue.includes("printers") &&
+              item.servicios.includes("printers")) ||
+            (filterValue.includes("open") && item.open)
+        )
+      );
+    }
+    setLoading(false);
   }, [onCheck]);
 
   return (
     <Layout>
       <OuterContainer>
         <div>
-          <Button onClick={handleToggle} style={{ backgroundColor: "#EDF2F7" }}>
+          <Button
+            onClick={() => handleToggle()}
+            style={{ backgroundColor: "#EDF2F7" }}
+          >
             <Icon name="settings" />
           </Button>
           <Collapse
@@ -93,8 +107,8 @@ const MapView = () => {
               </Checkbox>
               <Checkbox
                 value="open"
-                isChecked={filterValue.includes("printers")}
-                onChange={(e) => handleCheckboxToggle(e, "printers")}
+                isChecked={filterValue.includes("open")}
+                onChange={(e) => handleCheckboxToggle(e, "open")}
               >
                 Abierto
               </Checkbox>
@@ -165,7 +179,7 @@ const MapView = () => {
           </div>
 
           <MapContainer>
-            <Map />
+            {!loading ? <Map data={data} /> : <h1>Loading...</h1>}
           </MapContainer>
         </GridContainer>
       </OuterContainer>

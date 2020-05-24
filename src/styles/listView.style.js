@@ -34,5 +34,5 @@ export const SpacesContainer = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  color: #a0aec0;
+  color: #718096;
 `;

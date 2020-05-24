@@ -1,18 +1,19 @@
 // Libraries
 import React, { useState } from "react";
 import { Map as LeafletMap, TileLayer, Tooltip, Polygon } from "react-leaflet";
-import { lugares } from "../../utils/db";
 
 const Leaflet = window.L;
 
-const Map = () => {
+const Map = ({ data }) => {
   // Preferencias para inicializar el mapa y su centro
   const [mapPrefs] = useState({
     lat: 20.735007,
     lng: -103.456181,
     zoom: 17,
-    lugares,
+    lugares: data,
   });
+
+  console.log("Map: ", mapPrefs.lugares);
 
   // Inicializacion de toda la info que nos sirve para denotar el mapa
   const position = [mapPrefs.lat, mapPrefs.lng];

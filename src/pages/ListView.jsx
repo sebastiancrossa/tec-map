@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { lugares } from "../utils/db";
 
 // Styles
@@ -26,6 +26,7 @@ import Layout from "../components/layout";
 
 const ListView = () => {
   // ! REFACTOR THE FILTERING CODE SO THE LOGIC IS CONTAINED IN ONE FILE (OR MOST OF IT)
+  const [data, setData] = useState(lugares);
 
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
@@ -33,7 +34,38 @@ const ListView = () => {
 
   const handleToggle = () => setShow(!show);
 
-  const handleCheckboxToggle = (e, i) => {};
+  const handleCheckboxToggle = (e, val) => {
+    let newArr = [...filterValue];
+
+    // Si el arreglo de filtros ya incluye el valor que estamos queriendo pasar, eliminarlo
+    if (newArr.includes(val)) {
+      newArr = newArr.filter((item) => item !== val);
+    } else {
+      newArr.push(val);
+    }
+
+    setFilterValue(newArr);
+    setOnCheck(!onCheck);
+  };
+
+  useEffect(() => {
+    if (filterValue.length === 0) {
+      setData(lugares);
+    } else {
+      setData(
+        data.filter(
+          (item) =>
+            (filterValue.includes("computers") &&
+              item.servicios.includes("computers")) ||
+            (filterValue.includes("bathroom") &&
+              item.servicios.includes("bathroom")) ||
+            (filterValue.includes("printers") &&
+              item.servicios.includes("printers")) ||
+            (filterValue.includes("open") && item.open)
+        )
+      );
+    }
+  }, [onCheck]);
 
   return (
     <Layout>
@@ -76,8 +108,8 @@ const ListView = () => {
               </Checkbox>
               <Checkbox
                 value="open"
-                isChecked={filterValue.includes("printers")}
-                onChange={(e) => handleCheckboxToggle(e, "printers")}
+                isChecked={filterValue.includes("open")}
+                onChange={(e) => handleCheckboxToggle(e, "open")}
               >
                 Abierto
               </Checkbox>
@@ -88,7 +120,7 @@ const ListView = () => {
         <Header>Establecimientos</Header>
 
         <SpacesContainer>
-          {lugares.map((lugar) => (
+          {data.map((lugar) => (
             <Establecimiento>
               <div style={{ marginBottom: "1rem" }}>
                 <h1 style={{ margin: "0" }}>{lugar.name}</h1>
@@ -97,27 +129,34 @@ const ListView = () => {
                 {/* REFACTOR THIS UGLY CODE !!! */}
                 <ListContainer>
                   <h3>Horarios semanales</h3>
-                  <List styleType="disc">
+                  <List>
                     <ListItem>
-                      {lugar.horarios[0].mon[0]} - {lugar.horarios[0].mon[1]}
+                      Lunes: {lugar.horarios[0].mon[0]}am -{" "}
+                      {lugar.horarios[0].mon[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[1].tus[0]} - {lugar.horarios[1].tus[1]}
+                      Martes: {lugar.horarios[1].tus[0]}am -{" "}
+                      {lugar.horarios[1].tus[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[2].wed[0]} - {lugar.horarios[2].wed[1]}
+                      Miercoles: {lugar.horarios[2].wed[0]}am -{" "}
+                      {lugar.horarios[2].wed[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[3].thur[0]} - {lugar.horarios[3].thur[1]}
+                      Jueves: {lugar.horarios[3].thur[0]}am -{" "}
+                      {lugar.horarios[3].thur[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[4].fri[0]} - {lugar.horarios[4].fri[1]}
+                      Viernes: {lugar.horarios[4].fri[0]}am -{" "}
+                      {lugar.horarios[4].fri[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[5].sat[0]} - {lugar.horarios[5].sat[1]}
+                      Sabado: {lugar.horarios[5].sat[0]}am -{" "}
+                      {lugar.horarios[5].sat[1]}pm
                     </ListItem>
                     <ListItem>
-                      {lugar.horarios[6].sun[0]} - {lugar.horarios[6].sun[1]}
+                      Domingo: {lugar.horarios[6].sun[0]}am -{" "}
+                      {lugar.horarios[6].sun[1]}pm
                     </ListItem>
                   </List>
                 </ListContainer>

@@ -4,7 +4,8 @@ export const lugares = [
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     color: "blue",
-    servicios: ["bathroom"],
+    open: true,
+    servicios: ["bathroom", "printers"],
     horarios: [
       { mon: [7, 21] },
       { tus: [7, 21] },
@@ -26,6 +27,7 @@ export const lugares = [
     color: "red",
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    open: true,
     servicios: ["bathroom"],
     horarios: [
       { mon: [7, 21] },
@@ -48,6 +50,7 @@ export const lugares = [
     color: "green",
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    open: false,
     servicios: ["bathroom", "computers", "printers"],
     horarios: [
       { mon: [7, 21] },
@@ -70,7 +73,8 @@ export const lugares = [
     color: "purple",
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
-    servicios: ["bathroom"],
+    open: true,
+    servicios: [],
     horarios: [
       { mon: [7, 21] },
       { tus: [7, 21] },
