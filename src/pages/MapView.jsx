@@ -1,9 +1,12 @@
 // Libraries
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { lugares } from "../utils/db";
 
 // Styles
+import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
+import { OuterContainer } from "../style";
 import {
-  Container,
+  GridContainer,
   SpacesListContainer,
   Establecimiento,
   MapContainer,
@@ -14,67 +17,172 @@ import Layout from "../components/layout";
 import Map from "../components/Map";
 
 const MapView = () => {
-  // ! Exportar a un archivo externo y manejarlo de ahi
-  const lugares = [
-    {
-      name: "Centro de Congresos",
-      color: "blue",
-      coords: [
-        [20.732895, -103.456267],
-        [20.73248, -103.455965],
-        [20.732869, -103.45541],
-        [20.7333, -103.455776],
-      ],
-    },
-    {
-      name: "Gimnasio",
-      color: "red",
-      coords: [
-        [20.736284, -103.455898],
-        [20.735463, -103.455966],
-        [20.735404, -103.455617],
-        [20.736248, -103.455524],
-      ],
-    },
-    {
-      name: "Biblioteca",
-      color: "green",
-      coords: [
-        [20.735269, -103.455015],
-        [20.734837, -103.455036],
-        [20.734782, -103.454457],
-        [20.735184, -103.454446],
-      ],
-    },
-    {
-      name: "Difusión Cultural",
-      color: "purple",
-      coords: [
-        [20.735332, -103.457545],
-        [20.734958, -103.457572],
-        [20.734933, -103.457202],
-        [20.735291, -103.45718],
-      ],
-    },
-  ];
+  const [data, setData] = useState(lugares);
+
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [onCheck, setOnCheck] = useState(false);
+  const [filterValue, setFilterValue] = useState([]);
+
+  const handleToggle = () => setShow(!show);
+
+  const handleCheckboxToggle = (e, val) => {
+    setLoading(true);
+    let newArr = [...filterValue];
+
+    // Si el arreglo de filtros ya incluye el valor que estamos queriendo pasar, eliminarlo
+    if (newArr.includes(val)) {
+      newArr = newArr.filter((item) => item !== val);
+    } else {
+      newArr.push(val);
+    }
+
+    setLoading(false);
+    setFilterValue(newArr);
+    setOnCheck(!onCheck);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    if (filterValue.length === 0) {
+      setData(lugares);
+    } else {
+      setData(
+        data.filter(
+          (item) =>
+            (filterValue.includes("computers") &&
+              item.servicios.includes("computers")) ||
+            (filterValue.includes("bathroom") &&
+              item.servicios.includes("bathroom")) ||
+            (filterValue.includes("printers") &&
+              item.servicios.includes("printers")) ||
+            (filterValue.includes("open") && item.open)
+        )
+      );
+    }
+    setLoading(false);
+  }, [onCheck]);
 
   return (
     <Layout>
-      <Container>
-        <SpacesListContainer>
-          <h1>Establecimientos:</h1>
+      <OuterContainer>
+        <div>
+          <Button
+            onClick={() => handleToggle()}
+            style={{ backgroundColor: "#EDF2F7" }}
+          >
+            <Icon name="settings" />
+          </Button>
+          <Collapse
+            mt={4}
+            isOpen={show}
+            style={{
+              backgroundColor: "#EDF2F7",
+              padding: "1rem",
+              borderRadius: "5px",
+            }}
+          >
+            Filtrar por:
+            <Stack isInline spacing={4}>
+              <Checkbox
+                value="bathroom"
+                isChecked={filterValue.includes("bathroom")}
+                onChange={(e) => handleCheckboxToggle(e, "bathroom")}
+              >
+                Baños
+              </Checkbox>
+              <Checkbox
+                value="computers"
+                isChecked={filterValue.includes("computers")}
+                onChange={(e) => handleCheckboxToggle(e, "computers")}
+              >
+                Computadoras
+              </Checkbox>
+              <Checkbox
+                value="printers"
+                isChecked={filterValue.includes("printers")}
+                onChange={(e) => handleCheckboxToggle(e, "printers")}
+              >
+                Impresión
+              </Checkbox>
+              <Checkbox
+                value="open"
+                isChecked={filterValue.includes("open")}
+                onChange={(e) => handleCheckboxToggle(e, "open")}
+              >
+                Abierto
+              </Checkbox>
+            </Stack>
+          </Collapse>
+        </div>
 
-          {lugares.map((lugar) => (
-            <Establecimiento color={lugar.color}>
-              <div className="circle" color /> {lugar.name}
-            </Establecimiento>
-          ))}
-        </SpacesListContainer>
+        <GridContainer>
+          <div>
+            <h1>Establecimientos</h1>
+            <SpacesListContainer>
+              {data ? (
+                data.map((lugar) => (
+                  <Establecimiento color={lugar.color}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <h1 style={{ margin: "0" }}>{lugar.name}</h1>
+                    </div>
 
-        <MapContainer>
-          <Map />
-        </MapContainer>
-      </Container>
+                    <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+
+                    {lugar.servicios.length > 0 && (
+                      <Stack spacing={2} isInline>
+                        {lugar.servicios.map((servicio) => {
+                          if (servicio === "bathroom") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#90CDF4" }}
+                                color="white"
+                              >
+                                Baños
+                              </Tag>
+                            );
+                          }
+
+                          if (servicio === "computers") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#4FD1C5" }}
+                                color="white"
+                              >
+                                Computadoras
+                              </Tag>
+                            );
+                          }
+
+                          if (servicio === "printers") {
+                            return (
+                              <Tag
+                                size="sm"
+                                style={{ backgroundColor: "#FC8181" }}
+                                color="white"
+                              >
+                                Impresión
+                              </Tag>
+                            );
+                          }
+                        })}
+                      </Stack>
+                    )}
+                  </Establecimiento>
+                ))
+              ) : (
+                <h1>Loading...</h1>
+              )}
+            </SpacesListContainer>
+          </div>
+
+          <MapContainer>
+            {!loading ? <Map data={data} /> : <h1>Loading...</h1>}
+          </MapContainer>
+        </GridContainer>
+      </OuterContainer>
     </Layout>
   );
 };
