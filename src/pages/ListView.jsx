@@ -131,7 +131,7 @@ const ListView = () => {
                   <h3>Horarios semanales</h3>
                   <List>
                     <ListItem>
-                      Lunes: {lugar.horarios[0].mon[0]}am -{" "}
+                      Lunes: {lugar.horarios[0].monday[0]}am -{" "}
                       {lugar.horarios[0].mon[1]}pm
                     </ListItem>
                     <ListItem>

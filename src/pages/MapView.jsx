@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { lugares } from "../utils/db";
 
 // Styles
@@ -23,6 +24,23 @@ const MapView = () => {
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
+
+  // checks if the current users time is in the range of the availability hours for each establishment
+  // returns a boolean
+  // range => [n, n] array of numbers that represent the time range of disponibility
+  const checkIsOpen = (range) => {
+    const currentTime = moment().format("HH");
+
+    if (currentTime >= range[0] && currentTime <= range[1]) {
+      console.log(moment().format("e"), " is in range ", range);
+
+      return true;
+    } else {
+      console.log(moment().format("e"), " is not in range ", range);
+
+      return false;
+    }
+  };
 
   const handleToggle = () => setShow(!show);
 
@@ -56,7 +74,8 @@ const MapView = () => {
               item.servicios.includes("bathroom")) ||
             (filterValue.includes("printers") &&
               item.servicios.includes("printers")) ||
-            (filterValue.includes("open") && item.open)
+            (filterValue.includes("open") &&
+              checkIsOpen(item.horarios[moment().format("e")]))
         )
       );
     }
@@ -122,7 +141,10 @@ const MapView = () => {
             <SpacesListContainer>
               {data ? (
                 data.map((lugar) => (
-                  <Establecimiento color={lugar.color}>
+                  <Establecimiento
+                    color={lugar.color}
+                    isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+                  >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                     </div>
