@@ -1,6 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { lugares } from "../utils/db";
+import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
 import {
@@ -61,7 +63,8 @@ const ListView = () => {
               item.servicios.includes("bathroom")) ||
             (filterValue.includes("printers") &&
               item.servicios.includes("printers")) ||
-            (filterValue.includes("open") && item.open)
+            (filterValue.includes("open") &&
+              checkIsOpen(item.horarios[moment().format("e")]))
         )
       );
     }
@@ -121,7 +124,9 @@ const ListView = () => {
 
         <SpacesContainer>
           {data.map((lugar) => (
-            <Establecimiento>
+            <Establecimiento
+              isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+            >
               <div style={{ marginBottom: "1rem" }}>
                 <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                 <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>

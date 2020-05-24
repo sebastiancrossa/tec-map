@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { lugares } from "../utils/db";
+import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
 import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
@@ -24,23 +25,6 @@ const MapView = () => {
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
-
-  // checks if the current users time is in the range of the availability hours for each establishment
-  // returns a boolean
-  // range => [n, n] array of numbers that represent the time range of disponibility
-  const checkIsOpen = (range) => {
-    const currentTime = moment().format("HH");
-
-    if (currentTime >= range[0] && currentTime <= range[1]) {
-      console.log(moment().format("e"), " is in range ", range);
-
-      return true;
-    } else {
-      console.log(moment().format("e"), " is not in range ", range);
-
-      return false;
-    }
-  };
 
   const handleToggle = () => setShow(!show);
 
