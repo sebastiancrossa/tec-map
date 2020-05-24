@@ -131,32 +131,31 @@ const ListView = () => {
                   <h3>Horarios semanales</h3>
                   <List>
                     <ListItem>
-                      Lunes: {lugar.horarios[0].monday[0]}am -{" "}
-                      {lugar.horarios[0].mon[1]}pm
+                      Lunes: {lugar.horarios[1][0]}am - {lugar.horarios[1][1]}pm
                     </ListItem>
                     <ListItem>
-                      Martes: {lugar.horarios[1].tus[0]}am -{" "}
-                      {lugar.horarios[1].tus[1]}pm
+                      Martes: {lugar.horarios[2][0]}am - {lugar.horarios[2][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Miercoles: {lugar.horarios[2].wed[0]}am -{" "}
-                      {lugar.horarios[2].wed[1]}pm
+                      Miercoles: {lugar.horarios[3][0]}am -{" "}
+                      {lugar.horarios[3][1]}pm
                     </ListItem>
                     <ListItem>
-                      Jueves: {lugar.horarios[3].thur[0]}am -{" "}
-                      {lugar.horarios[3].thur[1]}pm
+                      Jueves: {lugar.horarios[4][0]}am - {lugar.horarios[4][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Viernes: {lugar.horarios[4].fri[0]}am -{" "}
-                      {lugar.horarios[4].fri[1]}pm
+                      Viernes: {lugar.horarios[5][0]}am - {lugar.horarios[5][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Sabado: {lugar.horarios[5].sat[0]}am -{" "}
-                      {lugar.horarios[5].sat[1]}pm
+                      Sabado: {lugar.horarios[6][0]}am - {lugar.horarios[6][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Domingo: {lugar.horarios[6].sun[0]}am -{" "}
-                      {lugar.horarios[6].sun[1]}pm
+                      Domingo: {lugar.horarios[0][0]}am - {lugar.horarios[0][1]}
+                      pm
                     </ListItem>
                   </List>
                 </ListContainer>
