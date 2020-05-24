@@ -1,16 +1,9 @@
 // Libraries
 import React, { useState, useEffect } from "react";
-import {
-  Stack,
-  Tag,
-  Button,
-  Collapse,
-  Icon,
-  Checkbox,
-  CheckboxGroup,
-} from "@chakra-ui/core";
+import { lugares } from "../utils/db";
 
 // Styles
+import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
 import { OuterContainer } from "../style";
 import {
   GridContainer,
@@ -24,64 +17,9 @@ import Layout from "../components/layout";
 import Map from "../components/Map";
 
 const MapView = () => {
-  // ! Exportar a un archivo externo y manejarlo de ahi
-  const lugares = [
-    {
-      name: "Centro de Congresos",
-      desc:
-        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
-      color: "blue",
-      servicios: ["bathroom"],
-      coords: [
-        [20.732895, -103.456267],
-        [20.73248, -103.455965],
-        [20.732869, -103.45541],
-        [20.7333, -103.455776],
-      ],
-    },
-    {
-      name: "Gimnasio",
-      color: "red",
-      desc:
-        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
-      servicios: ["bathroom"],
-      coords: [
-        [20.736284, -103.455898],
-        [20.735463, -103.455966],
-        [20.735404, -103.455617],
-        [20.736248, -103.455524],
-      ],
-    },
-    {
-      name: "Biblioteca",
-      color: "green",
-      desc:
-        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
-      servicios: ["bathroom", "computers", "printers"],
-      coords: [
-        [20.735269, -103.455015],
-        [20.734837, -103.455036],
-        [20.734782, -103.454457],
-        [20.735184, -103.454446],
-      ],
-    },
-    {
-      name: "Difusión Cultural",
-      color: "purple",
-      desc:
-        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
-      servicios: ["bathroom"],
-      coords: [
-        [20.735332, -103.457545],
-        [20.734958, -103.457572],
-        [20.734933, -103.457202],
-        [20.735291, -103.45718],
-      ],
-    },
-  ];
-
   const [data, setData] = useState(lugares);
 
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
@@ -89,29 +27,50 @@ const MapView = () => {
   const handleToggle = () => setShow(!show);
 
   const handleCheckboxToggle = (e, val) => {
+    setLoading(true);
     let newArr = [...filterValue];
 
     // Si el arreglo de filtros ya incluye el valor que estamos queriendo pasar, eliminarlo
     if (newArr.includes(val)) {
-      newArr.filter((item) => item != val);
+      newArr = newArr.filter((item) => item !== val);
     } else {
       newArr.push(val);
     }
 
-    setOnCheck(!onCheck);
+    setLoading(false);
     setFilterValue(newArr);
+    setOnCheck(!onCheck);
   };
 
   useEffect(() => {
-    console.log(filterValue);
-    console.log(data);
+    setLoading(true);
+    if (filterValue.length === 0) {
+      setData(lugares);
+    } else {
+      setData(
+        data.filter(
+          (item) =>
+            (filterValue.includes("computers") &&
+              item.servicios.includes("computers")) ||
+            (filterValue.includes("bathroom") &&
+              item.servicios.includes("bathroom")) ||
+            (filterValue.includes("printers") &&
+              item.servicios.includes("printers")) ||
+            (filterValue.includes("open") && item.open)
+        )
+      );
+    }
+    setLoading(false);
   }, [onCheck]);
 
   return (
     <Layout>
       <OuterContainer>
         <div>
-          <Button onClick={handleToggle} style={{ backgroundColor: "#EDF2F7" }}>
+          <Button
+            onClick={() => handleToggle()}
+            style={{ backgroundColor: "#EDF2F7" }}
+          >
             <Icon name="settings" />
           </Button>
           <Collapse
@@ -145,6 +104,13 @@ const MapView = () => {
                 onChange={(e) => handleCheckboxToggle(e, "printers")}
               >
                 Impresión
+              </Checkbox>
+              <Checkbox
+                value="open"
+                isChecked={filterValue.includes("open")}
+                onChange={(e) => handleCheckboxToggle(e, "open")}
+              >
+                Abierto
               </Checkbox>
             </Stack>
           </Collapse>
@@ -213,7 +179,7 @@ const MapView = () => {
           </div>
 
           <MapContainer>
-            <Map />
+            {!loading ? <Map data={data} /> : <h1>Loading...</h1>}
           </MapContainer>
         </GridContainer>
       </OuterContainer>
