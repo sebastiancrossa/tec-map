@@ -3,12 +3,22 @@ import React, { useState } from "react";
 import { lugares } from "../utils/db";
 
 // Styles
-import { Stack, Collapse, Checkbox, Icon, Button, Tag } from "@chakra-ui/core";
+import {
+  Stack,
+  Collapse,
+  Checkbox,
+  Icon,
+  Button,
+  Tag,
+  List,
+  ListItem,
+} from "@chakra-ui/core";
 import { OuterContainer as Container } from "../style";
 import {
   Header,
   SpacesContainer,
   Establecimiento,
+  ListContainer,
 } from "../styles/listView.style";
 
 // Component Imports
@@ -80,8 +90,38 @@ const ListView = () => {
         <SpacesContainer>
           {lugares.map((lugar) => (
             <Establecimiento>
-              <h1 style={{ margin: "0" }}>{lugar.name}</h1>
-              <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+              <div style={{ marginBottom: "1rem" }}>
+                <h1 style={{ margin: "0" }}>{lugar.name}</h1>
+                <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+
+                {/* REFACTOR THIS UGLY CODE !!! */}
+                <ListContainer>
+                  <h3>Horarios semanales</h3>
+                  <List styleType="disc">
+                    <ListItem>
+                      {lugar.horarios[0].mon[0]} - {lugar.horarios[0].mon[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[1].tus[0]} - {lugar.horarios[1].tus[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[2].wed[0]} - {lugar.horarios[2].wed[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[3].thur[0]} - {lugar.horarios[3].thur[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[4].fri[0]} - {lugar.horarios[4].fri[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[5].sat[0]} - {lugar.horarios[5].sat[1]}
+                    </ListItem>
+                    <ListItem>
+                      {lugar.horarios[6].sun[0]} - {lugar.horarios[6].sun[1]}
+                    </ListItem>
+                  </List>
+                </ListContainer>
+              </div>
 
               {lugar.servicios.length > 0 && (
                 <Stack spacing={2} isInline>

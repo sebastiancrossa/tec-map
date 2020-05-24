@@ -5,6 +5,15 @@ export const lugares = [
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     color: "blue",
     servicios: ["bathroom"],
+    horarios: [
+      { mon: [7, 21] },
+      { tus: [7, 21] },
+      { wed: [7, 21] },
+      { thur: [7, 21] },
+      { fri: [7, 21] },
+      { sat: [7, 21] },
+      { sun: [7, 21] },
+    ],
     coords: [
       [20.732895, -103.456267],
       [20.73248, -103.455965],
@@ -18,6 +27,15 @@ export const lugares = [
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     servicios: ["bathroom"],
+    horarios: [
+      { mon: [7, 21] },
+      { tus: [7, 21] },
+      { wed: [7, 21] },
+      { thur: [7, 21] },
+      { fri: [7, 21] },
+      { sat: [7, 21] },
+      { sun: [7, 21] },
+    ],
     coords: [
       [20.736284, -103.455898],
       [20.735463, -103.455966],
@@ -31,6 +49,15 @@ export const lugares = [
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     servicios: ["bathroom", "computers", "printers"],
+    horarios: [
+      { mon: [7, 21] },
+      { tus: [7, 21] },
+      { wed: [7, 21] },
+      { thur: [7, 21] },
+      { fri: [7, 21] },
+      { sat: [7, 21] },
+      { sun: [7, 21] },
+    ],
     coords: [
       [20.735269, -103.455015],
       [20.734837, -103.455036],
@@ -44,6 +71,15 @@ export const lugares = [
     desc:
       "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     servicios: ["bathroom"],
+    horarios: [
+      { mon: [7, 21] },
+      { tus: [7, 21] },
+      { wed: [7, 21] },
+      { thur: [7, 21] },
+      { fri: [7, 21] },
+      { sat: [7, 21] },
+      { sun: [7, 21] },
+    ],
     coords: [
       [20.735332, -103.457545],
       [20.734958, -103.457572],
