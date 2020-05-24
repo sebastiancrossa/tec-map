@@ -1,6 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { lugares } from "../utils/db";
+import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
 import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
@@ -56,7 +58,8 @@ const MapView = () => {
               item.servicios.includes("bathroom")) ||
             (filterValue.includes("printers") &&
               item.servicios.includes("printers")) ||
-            (filterValue.includes("open") && item.open)
+            (filterValue.includes("open") &&
+              checkIsOpen(item.horarios[moment().format("e")]))
         )
       );
     }
@@ -122,7 +125,10 @@ const MapView = () => {
             <SpacesListContainer>
               {data ? (
                 data.map((lugar) => (
-                  <Establecimiento color={lugar.color}>
+                  <Establecimiento
+                    color={lugar.color}
+                    isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+                  >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                     </div>

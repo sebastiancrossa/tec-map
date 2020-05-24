@@ -1,6 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { lugares } from "../utils/db";
+import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
 import {
@@ -61,7 +63,8 @@ const ListView = () => {
               item.servicios.includes("bathroom")) ||
             (filterValue.includes("printers") &&
               item.servicios.includes("printers")) ||
-            (filterValue.includes("open") && item.open)
+            (filterValue.includes("open") &&
+              checkIsOpen(item.horarios[moment().format("e")]))
         )
       );
     }
@@ -121,7 +124,9 @@ const ListView = () => {
 
         <SpacesContainer>
           {data.map((lugar) => (
-            <Establecimiento>
+            <Establecimiento
+              isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+            >
               <div style={{ marginBottom: "1rem" }}>
                 <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                 <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
@@ -131,32 +136,31 @@ const ListView = () => {
                   <h3>Horarios semanales</h3>
                   <List>
                     <ListItem>
-                      Lunes: {lugar.horarios[0].mon[0]}am -{" "}
-                      {lugar.horarios[0].mon[1]}pm
+                      Lunes: {lugar.horarios[1][0]}am - {lugar.horarios[1][1]}pm
                     </ListItem>
                     <ListItem>
-                      Martes: {lugar.horarios[1].tus[0]}am -{" "}
-                      {lugar.horarios[1].tus[1]}pm
+                      Martes: {lugar.horarios[2][0]}am - {lugar.horarios[2][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Miercoles: {lugar.horarios[2].wed[0]}am -{" "}
-                      {lugar.horarios[2].wed[1]}pm
+                      Miercoles: {lugar.horarios[3][0]}am -{" "}
+                      {lugar.horarios[3][1]}pm
                     </ListItem>
                     <ListItem>
-                      Jueves: {lugar.horarios[3].thur[0]}am -{" "}
-                      {lugar.horarios[3].thur[1]}pm
+                      Jueves: {lugar.horarios[4][0]}am - {lugar.horarios[4][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Viernes: {lugar.horarios[4].fri[0]}am -{" "}
-                      {lugar.horarios[4].fri[1]}pm
+                      Viernes: {lugar.horarios[5][0]}am - {lugar.horarios[5][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Sabado: {lugar.horarios[5].sat[0]}am -{" "}
-                      {lugar.horarios[5].sat[1]}pm
+                      Sabado: {lugar.horarios[6][0]}am - {lugar.horarios[6][1]}
+                      pm
                     </ListItem>
                     <ListItem>
-                      Domingo: {lugar.horarios[6].sun[0]}am -{" "}
-                      {lugar.horarios[6].sun[1]}pm
+                      Domingo: {lugar.horarios[0][0]}am - {lugar.horarios[0][1]}
+                      pm
                     </ListItem>
                   </List>
                 </ListContainer>
