@@ -1,6 +1,8 @@
 // Libraries
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { lugares } from "../utils/db";
+import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
 import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
@@ -23,6 +25,8 @@ const MapView = () => {
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
+
+  console.log(filterValue);
 
   const handleToggle = () => setShow(!show);
 
@@ -48,15 +52,14 @@ const MapView = () => {
       setData(lugares);
     } else {
       setData(
-        data.filter(
-          (item) =>
-            (filterValue.includes("computers") &&
-              item.servicios.includes("computers")) ||
-            (filterValue.includes("bathroom") &&
-              item.servicios.includes("bathroom")) ||
-            (filterValue.includes("printers") &&
-              item.servicios.includes("printers")) ||
-            (filterValue.includes("open") && item.open)
+        data.filter((item) =>
+          filterValue.every((filter) => {
+            if (filter === "open") {
+              return checkIsOpen(item.horarios[moment().format("e")]);
+            }
+
+            return item.servicios.includes(filter);
+          })
         )
       );
     }
@@ -122,7 +125,10 @@ const MapView = () => {
             <SpacesListContainer>
               {data ? (
                 data.map((lugar) => (
-                  <Establecimiento color={lugar.color}>
+                  <Establecimiento
+                    color={lugar.color}
+                    isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+                  >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <h1 style={{ margin: "0" }}>{lugar.name}</h1>
                     </div>

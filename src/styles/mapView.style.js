@@ -30,6 +30,7 @@ export const SpacesListContainer = styled.div`
 
 export const Establecimiento = styled.div`
   border-top: 5px solid ${({ color }) => color && color};
+  opacity: ${({ isOpen }) => !isOpen && "0.2"};
 
   background-color: white;
   border-radius: 5px;

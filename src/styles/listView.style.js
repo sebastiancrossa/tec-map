@@ -8,6 +8,8 @@ export const Header = styled.h1`
 `;
 
 export const Establecimiento = styled.div`
+  opacity: ${({ isOpen }) => !isOpen && "0.2"};
+
   background-color: white;
   border-radius: 5px;
 
