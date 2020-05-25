@@ -43,6 +43,8 @@ export const SpacesContainer = styled.div`
     margin: 0 auto;
 
     width: 90%;
+
+    padding-bottom: 1.3rem;
   }
 `;
 
