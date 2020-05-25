@@ -4,7 +4,7 @@ import { Map as LeafletMap, TileLayer, Tooltip, Polygon } from "react-leaflet";
 
 const Leaflet = window.L;
 
-const Map = ({ data }) => {
+const Map = ({ data, lang }) => {
   // Preferencias para inicializar el mapa y su centro
   const [mapPrefs] = useState({
     lat: 20.735007,
@@ -12,8 +12,6 @@ const Map = ({ data }) => {
     zoom: 17,
     lugares: data,
   });
-
-  console.log("Map: ", mapPrefs.lugares);
 
   // Inicializacion de toda la info que nos sirve para denotar el mapa
   const position = [mapPrefs.lat, mapPrefs.lng];
@@ -32,7 +30,7 @@ const Map = ({ data }) => {
       {mapPrefs.lugares.map((lugar) => (
         <Polygon positions={lugar.coords} color={lugar.color}>
           <Tooltip direction="bottom" sticky>
-            {lugar.name}
+            {lugar.name[lang]}
           </Tooltip>
         </Polygon>
       ))}
