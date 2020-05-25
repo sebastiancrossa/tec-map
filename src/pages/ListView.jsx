@@ -21,6 +21,7 @@ import {
   SpacesContainer,
   Establecimiento,
   ListContainer,
+  SettingsContainer,
 } from "../styles/listView.style";
 
 // Component Imports
@@ -55,16 +56,14 @@ const ListView = () => {
       setData(lugares);
     } else {
       setData(
-        data.filter(
-          (item) =>
-            (filterValue.includes("computers") &&
-              item.servicios.includes("computers")) ||
-            (filterValue.includes("bathroom") &&
-              item.servicios.includes("bathroom")) ||
-            (filterValue.includes("printers") &&
-              item.servicios.includes("printers")) ||
-            (filterValue.includes("open") &&
-              checkIsOpen(item.horarios[moment().format("e")]))
+        data.filter((item) =>
+          filterValue.every((filter) => {
+            if (filter === "open") {
+              return checkIsOpen(item.horarios[moment().format("e")]);
+            }
+
+            return item.servicios.includes(filter);
+          })
         )
       );
     }
@@ -73,7 +72,7 @@ const ListView = () => {
   return (
     <Layout>
       <Container>
-        <div style={{ marginBottom: "1rem" }}>
+        <SettingsContainer>
           <Button onClick={handleToggle} style={{ backgroundColor: "#EDF2F7" }}>
             <Icon name="settings" />
           </Button>
@@ -118,7 +117,7 @@ const ListView = () => {
               </Checkbox>
             </Stack>
           </Collapse>
-        </div>
+        </SettingsContainer>
 
         <Header>Establecimientos</Header>
 
