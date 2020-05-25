@@ -26,6 +26,8 @@ const MapView = () => {
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
 
+  console.log(filterValue);
+
   const handleToggle = () => setShow(!show);
 
   const handleCheckboxToggle = (e, val) => {
@@ -50,16 +52,14 @@ const MapView = () => {
       setData(lugares);
     } else {
       setData(
-        data.filter(
-          (item) =>
-            (filterValue.includes("computers") &&
-              item.servicios.includes("computers")) ||
-            (filterValue.includes("bathroom") &&
-              item.servicios.includes("bathroom")) ||
-            (filterValue.includes("printers") &&
-              item.servicios.includes("printers")) ||
-            (filterValue.includes("open") &&
-              checkIsOpen(item.horarios[moment().format("e")]))
+        data.filter((item) =>
+          filterValue.every((filter) => {
+            if (filter === "open") {
+              return checkIsOpen(item.horarios[moment().format("e")]);
+            }
+
+            return item.servicios.includes(filter);
+          })
         )
       );
     }
