@@ -5,6 +5,10 @@ export const Header = styled.h1`
   font-weight: 700;
 
   margin-bottom: 0.5rem;
+
+  @media only screen and (max-width: 820px) {
+    text-align: center;
+  }
 `;
 
 export const Establecimiento = styled.div`
@@ -24,7 +28,7 @@ export const Establecimiento = styled.div`
 
 export const SpacesContainer = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 50% 50%;
   grid-gap: 1.2rem;
 
   h1 {
@@ -32,6 +36,24 @@ export const SpacesContainer = styled.div`
     font-weight: 700;
 
     margin-bottom: 0.5rem;
+  }
+
+  @media only screen and (max-width: 820px) {
+    grid-template-columns: auto;
+    margin: 0 auto;
+
+    width: 90%;
+  }
+`;
+
+export const SettingsContainer = styled.div`
+  margin-bottom: 1rem;
+
+  @media only screen and (max-width: 820px) {
+    text-align: center;
+
+    max-width: 90%;
+    margin: 0 auto 1.5rem auto;
   }
 `;
 

@@ -5,7 +5,17 @@ import { lugares } from "../utils/db";
 import { checkIsOpen } from "../utils/checkIsOpen";
 
 // Styles
-import { Stack, Tag, Button, Collapse, Icon, Checkbox } from "@chakra-ui/core";
+import {
+  Stack,
+  Tag,
+  TagLabel,
+  Button,
+  Collapse,
+  Icon,
+  Checkbox,
+  Radio,
+  RadioGroup,
+} from "@chakra-ui/core";
 import { OuterContainer } from "../style";
 import {
   GridContainer,
@@ -20,13 +30,12 @@ import Map from "../components/Map";
 
 const MapView = () => {
   const [data, setData] = useState(lugares);
+  const [lang, setLang] = useState("es");
 
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [onCheck, setOnCheck] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
-
-  console.log(filterValue);
 
   const handleToggle = () => setShow(!show);
 
@@ -85,55 +94,87 @@ const MapView = () => {
               borderRadius: "5px",
             }}
           >
-            Filtrar por:
+            {lang === "en" ? "Filter by:" : "Filtrar por:"}
             <Stack isInline spacing={4}>
               <Checkbox
                 value="bathroom"
                 isChecked={filterValue.includes("bathroom")}
                 onChange={(e) => handleCheckboxToggle(e, "bathroom")}
               >
-                Baños
+                {lang === "en" ? "Bathrooms" : "Baños"}
               </Checkbox>
               <Checkbox
                 value="computers"
                 isChecked={filterValue.includes("computers")}
                 onChange={(e) => handleCheckboxToggle(e, "computers")}
               >
-                Computadoras
+                {lang === "en" ? "Computers" : "Computadoras"}
               </Checkbox>
               <Checkbox
                 value="printers"
                 isChecked={filterValue.includes("printers")}
                 onChange={(e) => handleCheckboxToggle(e, "printers")}
               >
-                Impresión
+                {lang === "en" ? "Printers" : "Impresión"}
               </Checkbox>
               <Checkbox
                 value="open"
                 isChecked={filterValue.includes("open")}
                 onChange={(e) => handleCheckboxToggle(e, "open")}
               >
-                Abierto
+                {lang === "en" ? "Open" : "Abierto"}
               </Checkbox>
             </Stack>
+            <br />
+
+            {lang === "en" ? "Language:" : "Idioma:"}
+            <RadioGroup
+              isInline
+              spacing={4}
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+            >
+              <Radio value="en">{lang === "en" ? "English" : "Ingles"}</Radio>
+              <Radio value="es">{lang === "en" ? "Spanish" : "Español"}</Radio>
+            </RadioGroup>
           </Collapse>
         </div>
 
         <GridContainer>
           <div>
-            <h1>Establecimientos</h1>
+            <h1>{lang === "en" ? "Places" : "Establecimientos"}</h1>
             <SpacesListContainer>
               {data ? (
                 data.map((lugar) => (
                   <Establecimiento
                     color={lugar.color}
                     isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+                    key={lugar.name}
                   >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <h1 style={{ margin: "0" }}>{lugar.name}</h1>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h1 style={{ margin: "0" }}>{lugar.name[lang]}</h1>
+                      <Tag
+                        variantColor={lugar.color}
+                        rounded="full"
+                        size="sm"
+                        style={{ width: "7rem" }}
+                      >
+                        <TagLabel
+                          style={{ textAlign: "center", margin: "0 auto" }}
+                        >
+                          {lugar.horarios[moment().format("e")][0]}am -{" "}
+                          {lugar.horarios[moment().format("e")][1]}pm
+                        </TagLabel>
+                      </Tag>
                     </div>
 
-                    <p style={{ marginBottom: "0.3rem" }}>{lugar.desc}</p>
+                    <p style={{ marginBottom: "0.3rem" }}>{lugar.desc[lang]}</p>
 
                     {lugar.servicios.length > 0 && (
                       <Stack spacing={2} isInline>
@@ -145,7 +186,7 @@ const MapView = () => {
                                 style={{ backgroundColor: "#90CDF4" }}
                                 color="white"
                               >
-                                Baños
+                                {lang === "en" ? "Bathrooms" : "Baños"}
                               </Tag>
                             );
                           }
@@ -157,7 +198,7 @@ const MapView = () => {
                                 style={{ backgroundColor: "#4FD1C5" }}
                                 color="white"
                               >
-                                Computadoras
+                                {lang === "en" ? "Computers" : "Computadoras"}
                               </Tag>
                             );
                           }
@@ -169,7 +210,7 @@ const MapView = () => {
                                 style={{ backgroundColor: "#FC8181" }}
                                 color="white"
                               >
-                                Impresión
+                                {lang === "en" ? "Printers" : "Impresión"}
                               </Tag>
                             );
                           }
@@ -185,7 +226,7 @@ const MapView = () => {
           </div>
 
           <MapContainer>
-            {!loading ? <Map data={data} /> : <h1>Loading...</h1>}
+            {!loading ? <Map data={data} lang={lang} /> : <h1>Loading...</h1>}
           </MapContainer>
         </GridContainer>
       </OuterContainer>
