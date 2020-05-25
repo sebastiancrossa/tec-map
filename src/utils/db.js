@@ -16,7 +16,7 @@ export const lugares = [
     open: true,
     servicios: ["bathroom", "printers"],
     horarios: [
-      [7, 9],
+      [1, 24],
       [7, 21],
       [7, 21],
       [7, 21],

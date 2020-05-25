@@ -8,6 +8,7 @@ import { checkIsOpen } from "../utils/checkIsOpen";
 import {
   Stack,
   Tag,
+  TagLabel,
   Button,
   Collapse,
   Icon,
@@ -148,9 +149,29 @@ const MapView = () => {
                   <Establecimiento
                     color={lugar.color}
                     isOpen={checkIsOpen(lugar.horarios[moment().format("e")])}
+                    key={lugar.name}
                   >
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <h1 style={{ margin: "0" }}>{lugar.name[lang]}</h1>
+                      <Tag
+                        variantColor={lugar.color}
+                        rounded="full"
+                        size="sm"
+                        style={{ width: "7rem" }}
+                      >
+                        <TagLabel
+                          style={{ textAlign: "center", margin: "0 auto" }}
+                        >
+                          {lugar.horarios[moment().format("e")][0]}am -{" "}
+                          {lugar.horarios[moment().format("e")][1]}pm
+                        </TagLabel>
+                      </Tag>
                     </div>
 
                     <p style={{ marginBottom: "0.3rem" }}>{lugar.desc[lang]}</p>
