@@ -153,36 +153,36 @@ const ListView = () => {
                   <List>
                     <ListItem>
                       {lang === "en" ? "Monday" : "Lunes"}:{" "}
-                      {lugar.horarios[1][0]}am - {lugar.horarios[1][1]}pm
+                      {lugar.horarios[1][0]}:00 - {lugar.horarios[1][1]}:00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Tuesday" : "Martes"}:{" "}
-                      {lugar.horarios[2][0]}am - {lugar.horarios[2][1]}
-                      pm
+                      {lugar.horarios[2][0]}:00 - {lugar.horarios[2][1]}
+                      :00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Wednseday" : "Miercoles"}:{" "}
-                      {lugar.horarios[3][0]}am - {lugar.horarios[3][1]}pm
+                      {lugar.horarios[3][0]}:00 - {lugar.horarios[3][1]}:00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Thursday" : "Jueves"}:{" "}
-                      {lugar.horarios[4][0]}am - {lugar.horarios[4][1]}
-                      pm
+                      {lugar.horarios[4][0]}:00 - {lugar.horarios[4][1]}
+                      :00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Friday" : "Viernes"}:{" "}
-                      {lugar.horarios[5][0]}am - {lugar.horarios[5][1]}
-                      pm
+                      {lugar.horarios[5][0]}:00 - {lugar.horarios[5][1]}
+                      :00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Saturday" : "Sabado"}:{" "}
-                      {lugar.horarios[6][0]}am - {lugar.horarios[6][1]}
-                      pm
+                      {lugar.horarios[6][0]}:00 - {lugar.horarios[6][1]}
+                      :00
                     </ListItem>
                     <ListItem>
                       {lang === "en" ? "Sunday" : "Domingo"}:{" "}
-                      {lugar.horarios[0][0]}am - {lugar.horarios[0][1]}
-                      pm
+                      {lugar.horarios[0][0]}:00 - {lugar.horarios[0][1]}
+                      :00
                     </ListItem>
                   </List>
                 </ListContainer>

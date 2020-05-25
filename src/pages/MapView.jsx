@@ -169,8 +169,8 @@ const MapView = () => {
                         <TagLabel
                           style={{ textAlign: "center", margin: "0 auto" }}
                         >
-                          {lugar.horarios[moment().format("e")][0]}am -{" "}
-                          {lugar.horarios[moment().format("e")][1]}pm
+                          {lugar.horarios[moment().format("e")][0]}:00 -{" "}
+                          {lugar.horarios[moment().format("e")][1]}:00
                         </TagLabel>
                       </Tag>
                     </div>
