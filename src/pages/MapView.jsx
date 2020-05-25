@@ -187,7 +187,7 @@ const MapView = () => {
                                 style={{ backgroundColor: "#90CDF4" }}
                                 color="white"
                               >
-                                {lang === "en" ? "Bathrooms" : "Baños"}
+                                {lang === "en" ? "Restrooms" : "Baños"}
                               </Tag>
                             );
                           }
