@@ -2,14 +2,21 @@
 
 export const lugares = [
   {
-    name: "Centro de Congresos",
-    desc:
-      "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    name: {
+      en: "Congress Center",
+      es: "Centro de Congresos",
+    },
+    desc: {
+      en:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      es:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    },
     color: "blue",
     open: true,
     servicios: ["bathroom", "printers"],
     horarios: [
-      [7, 9],
+      [1, 24],
       [7, 21],
       [7, 21],
       [7, 21],
@@ -25,10 +32,17 @@ export const lugares = [
     ],
   },
   {
-    name: "Gimnasio",
+    name: {
+      en: "Gym",
+      es: "Gimnasio",
+    },
+    desc: {
+      en:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      es:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    },
     color: "red",
-    desc:
-      "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     open: true,
     servicios: ["bathroom"],
     horarios: [
@@ -48,10 +62,17 @@ export const lugares = [
     ],
   },
   {
-    name: "Biblioteca",
+    name: {
+      en: "Library",
+      es: "Biblioteca",
+    },
+    desc: {
+      en:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      es:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    },
     color: "green",
-    desc:
-      "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     open: false,
     servicios: ["bathroom", "computers", "printers"],
     horarios: [
@@ -71,10 +92,17 @@ export const lugares = [
     ],
   },
   {
-    name: "Difusión Cultural",
+    name: {
+      en: "Cultural Center",
+      es: "Difusión Cultural",
+    },
+    desc: {
+      en:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+      es:
+        "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
+    },
     color: "purple",
-    desc:
-      "Iis qui facit eorum claritatem Investigationes: demonstraverunt lectores legere me lius quod.",
     open: true,
     servicios: [],
     horarios: [
