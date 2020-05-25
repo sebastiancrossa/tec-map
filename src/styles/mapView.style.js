@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Stack } from "@chakra-ui/core";
 
 export const GridContainer = styled.div`
   display: grid;
@@ -53,4 +54,19 @@ export const MapContainer = styled.div`
   @media only screen and (max-width: 1100px) {
     width: 100%;
   }
+`;
+
+export const SettingsContainer = styled.div`
+  margin-bottom: 1rem;
+
+  @media only screen and (max-width: 820px) {
+    text-align: center;
+
+    max-width: 90%;
+    margin: 0 auto;
+  }
+`;
+
+export const ListContainer = styled.div`
+  color: #718096;
 `;

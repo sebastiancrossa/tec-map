@@ -22,6 +22,7 @@ import {
   SpacesListContainer,
   Establecimiento,
   MapContainer,
+  SettingsContainer,
 } from "../styles/mapView.style";
 
 // Component Imports
@@ -78,7 +79,7 @@ const MapView = () => {
   return (
     <Layout>
       <OuterContainer>
-        <div>
+        <SettingsContainer>
           <Button
             onClick={() => handleToggle()}
             style={{ backgroundColor: "#EDF2F7" }}
@@ -138,7 +139,7 @@ const MapView = () => {
               <Radio value="es">{lang === "en" ? "Spanish" : "Español"}</Radio>
             </RadioGroup>
           </Collapse>
-        </div>
+        </SettingsContainer>
 
         <GridContainer>
           <div>
