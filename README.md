@@ -1,3 +1,9 @@
 # Tec Map
 
-Proyecto final para la materia de Análisis y Modelación de Sistemas de Software.
+Ve de manera visual la disponibilidad de cada establecimiento de ITESM Campus Guadalajara.
+
+## Cómo correr
+
+```js
+npm start
+```
